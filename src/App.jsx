@@ -4,6 +4,8 @@ import axios from 'axios';
 import UsersList from './components/UsersList';
 import UsersForm from './components/UsersForm';
 import Font from './components/Font';
+import AlertAxios from './components/AlertAxios';
+
 
 function App() {
 
@@ -12,6 +14,8 @@ function App() {
 
   const [ approvalBullet, setApprovalBullet ] = useState(false)
   const [ showForm , setShowForm ] = useState(false);
+
+  const [ alerAxios, setAlertAxios ] = useState('hidden')
 
   const deselectUser = () => {
     setUserSelected(null);
@@ -45,6 +49,8 @@ function App() {
     <div className="App">
 
       <div className='container'>
+
+        <AlertAxios alerAxios={alerAxios} />
         
         <h1>Users</h1>
         
@@ -56,11 +62,9 @@ function App() {
           changeShowForm={changeShowForm} 
         />
         
-        <div className={ approvalBullet ? "approval-bullet" : "hidden"  } >
-          <i className="fa-solid fa-check"></i>
-        </div>
         
         <UsersList usersList={usersList} selectedUser={selectedUser} deleteUser={deleteUser} />
+
 
       </div>
           

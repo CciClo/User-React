@@ -15,9 +15,10 @@ const UsersList = ({ usersList, selectedUser, deleteUser }) => {
             </div>
 
             <div className='user-button'>
-              <i className="fa-solid fa-trash-can" onClick={ () => deleteUser(user.id) } ></i>
+              <i className="fa-solid fa-user-xmark" onClick={ () => deleteUser(user.id) } ></i>
               <i className="fa-solid fa-pen" onClick={() => selectedUser(user)}></i>
             </div>
+            
 
           </li>
         ))
