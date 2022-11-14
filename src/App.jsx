@@ -4,8 +4,8 @@ import axios from 'axios';
 import UsersList from './components/UsersList';
 import UsersForm from './components/UsersForm';
 import Font from './components/Font';
-import AlertAxios from './components/AlertAxios';
-
+import AlertFormAxios from './components/AlertFormAxios';
+import useAlertForm from './hooks/useAlertForm';
 
 function App() {
 
@@ -14,7 +14,7 @@ function App() {
 
   const [ approvalBullet, setApprovalBullet ] = useState(false)
   const [ showForm , setShowForm ] = useState(false);
-
+  const { alertAxiosForm } = useAlertForm();
   const [ alerAxios, setAlertAxios ] = useState('hidden')
 
   const deselectUser = () => {
@@ -24,12 +24,14 @@ function App() {
 
   const getUsersList = () => {
     axios.get('https://users-crud1.herokuapp.com/users/')
-      .then( res => setUsersList(res.data));
+      .then( res => { setUsersList(res.data) })
+      .catch(() => {alertAxiosForm('alert-danger')});
   };
 
   const deleteUser = (id) => {
     axios.delete(`https://users-crud1.herokuapp.com/users/${id}`)
-      .then( () => getUsersList() )
+      .then( () => {getUsersList() ; alertAxiosForm('alert-success') } )
+      .catch(() => {alertAxiosForm('alert-danger')});
   };
 
   const selectedUser = ( user ) => {
@@ -50,7 +52,7 @@ function App() {
 
       <div className='container'>
 
-        <AlertAxios alerAxios={alerAxios} />
+        <AlertFormAxios />
         
         <h1>Users</h1>
         
